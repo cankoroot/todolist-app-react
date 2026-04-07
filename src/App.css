@@ -36,6 +36,9 @@
         radial-gradient(circle at top, rgba(255, 255, 255, 0.55), transparent 26%),
         linear-gradient(180deg, #f3f4f6 0%, #e9edf2 100%);
     color: #1f2937;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
 }
 
 .app-shell.has-user {

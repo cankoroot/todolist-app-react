@@ -1,18 +1,25 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": "1",
+      "username": "cankoroot",
+      "email": "burakyaldizby@gmail.com",
+      "password": "159357",
+      "todos": [
         {
-            "id": "1",
-            "username": "cankoroot",
-            "email": "burakyaldizby@gmail.com",
-            "password": "159357",
-            "todos": []
-        },
-        {
-            "username": "gözde",
-            "email": "kija.haneul12@gmail.com",
-            "password": "159357",
-            "todos": [],
-            "id": "vNXuzuJnDQ8"
+          "id": 864,
+          "content": "Salamlar",
+          "isCompleted": false
         }
-    ]
+      ]
+    },
+    {
+      "username": "gözde",
+      "email": "kija.haneul12@gmail.com",
+      "password": "159357",
+      "todos": [],
+      "id": "vNXuzuJnDQ8"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
