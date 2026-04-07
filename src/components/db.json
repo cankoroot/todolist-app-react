@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "cankoroot",
+            "email": "burakyaldizby@gmail.com",
+            "password": "159357",
+            "todos": []
+        },
+        {
+            "username": "gözde",
+            "email": "kija.haneul12@gmail.com",
+            "password": "159357",
+            "todos": [],
+            "id": "vNXuzuJnDQ8"
+        }
+    ]
+}

@@ -1,0 +1,459 @@
+@keyframes authPanelIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 28px 0 40px;
+    min-height: 100svh;
+    transition:
+        background-color 220ms ease,
+        color 220ms ease;
+}
+
+.app-shell.theme-dark {
+    --bg: #16171d;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    color: #ffffff;
+}
+
+.app-shell.theme-light {
+    background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.55), transparent 26%),
+        linear-gradient(180deg, #f3f4f6 0%, #e9edf2 100%);
+    color: #1f2937;
+}
+
+.app-shell.has-user {
+    padding-top: 78px;
+}
+
+.auth-shell {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+    color: #ffffff;
+}
+
+.app-shell.theme-light .auth-shell {
+    border-color: rgba(17, 24, 39, 0.07);
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.65), transparent 34%),
+        linear-gradient(180deg, #fbfbfc 0%, #f1f4f8 100%);
+    box-shadow: 0 18px 60px rgba(17, 24, 39, 0.08);
+    color: #1f2937;
+}
+
+.app-shell.theme-light .auth-shell .auth-hero,
+.app-shell.theme-light .auth-shell p,
+.app-shell.theme-light .auth-shell label {
+    color: #1f2937;
+}
+
+.app-shell.theme-light .auth-shell input {
+    border-color: rgba(17, 24, 39, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+    color: #1f2937;
+}
+
+.app-shell.theme-light .auth-shell input::placeholder {
+    color: rgba(31, 41, 55, 0.45);
+}
+
+.app-shell.theme-light .auth-shell input:focus {
+    border-color: rgba(31, 41, 55, 0.22);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
+}
+
+.app-shell.theme-light .auth-shell .auth-switcher {
+    background: rgba(17, 24, 39, 0.04);
+}
+
+.app-shell.theme-light .auth-shell .auth-switcher-btn {
+    color: rgba(31, 41, 55, 0.72);
+    background: rgba(31, 41, 55, 0.03);
+}
+
+.app-shell.theme-light .auth-shell .auth-switcher-btn.active {
+    color: #1f2937;
+    background: linear-gradient(180deg, rgba(31, 41, 55, 0.08), rgba(31, 41, 55, 0.04));
+}
+
+.app-shell.theme-light .auth-shell .btn-login,
+.app-shell.theme-light .auth-shell .btn-register {
+    color: #ffffff;
+    background: linear-gradient(180deg, #2d3748, #111827);
+    box-shadow: 0 12px 32px rgba(17, 24, 39, 0.14);
+}
+
+.avatar-menu-anchor {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 54px;
+    height: 54px;
+    border: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    background: linear-gradient(180deg, #4b5563, #111827);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        filter 160ms ease;
+}
+
+.user-avatar:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.32);
+    filter: brightness(1.04);
+}
+
+.user-avatar:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.app-shell.theme-light .user-avatar {
+    color: #ffffff;
+    background: linear-gradient(180deg, #1f2937, #4b5563);
+    box-shadow: 0 14px 26px rgba(17, 24, 39, 0.16);
+}
+
+.user-dropdown {
+    min-width: 212px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background: rgba(15, 15, 18, 0.96);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.36);
+    backdrop-filter: blur(16px);
+}
+
+.app-shell.theme-light .user-dropdown {
+    border-color: rgba(17, 24, 39, 0.1);
+    background: rgba(250, 250, 251, 0.96);
+    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.1);
+}
+
+.user-dropdown-item {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    text-align: left;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    color: #ffffff;
+    background: transparent;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.user-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(1px);
+}
+
+.app-shell.theme-light .user-dropdown-item {
+    color: #1f2937;
+}
+
+.app-shell.theme-light .user-dropdown-item:hover {
+    background: rgba(17, 24, 39, 0.05);
+}
+
+.auth-switcher {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 8px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.auth-switcher-btn {
+    border: 0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    font: inherit;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    transition:
+        transform 180ms ease,
+        background-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.auth-switcher-btn:hover {
+    transform: translateY(-1px);
+}
+
+.auth-switcher-btn.active {
+    color: #ffffff;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.auth-panel {
+    animation: authPanelIn 240ms ease;
+}
+
+.auth-panel.register-mode {
+    transform-origin: left top;
+}
+
+.auth-panel.login-mode {
+    transform-origin: right top;
+}
+
+.auth-shell .register-container,
+.auth-shell .login-container {
+    color: #ffffff;
+}
+
+.auth-shell .auth-hero,
+.auth-shell p,
+.auth-shell label {
+    color: #ffffff;
+}
+
+.auth-shell input {
+    width: 100%;
+    margin: 8px 0 16px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    outline: none;
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.auth-shell input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.auth-shell input:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.auth-shell input[type='radio'] {
+    width: auto;
+    margin-right: 8px;
+    margin-bottom: 0;
+    accent-color: #ffffff;
+}
+
+.auth-shell input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #ffffff;
+    flex-shrink: 0;
+}
+
+.auth-shell .btn-login,
+.auth-shell .btn-register {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 16px;
+    font: inherit;
+    font-weight: 800;
+    color: #0b0b0d;
+    background: linear-gradient(180deg, #ffffff, #d8d8d8);
+    cursor: pointer;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        filter 160ms ease;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+.auth-shell .btn-login:hover,
+.auth-shell .btn-register:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.02);
+}
+
+.auth-shell .btn-login:active,
+.auth-shell .btn-register:active {
+    transform: translateY(0);
+}
+
+.auth-shell .auth-hero {
+    margin-bottom: 14px;
+}
+
+.auth-shell p {
+    display: block;
+    text-align: left;
+    margin-top: 8px;
+}
+
+.auth-shell label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+}
+
+.auth-shell label input {
+    margin: 0;
+}
+
+.todo-shell {
+    width: 100%;
+}
+
+.app-shell.theme-light .todo-shell {
+    color: #111827;
+}
+
+.app-shell.theme-light .todo-create {
+    color: #111827;
+}
+
+.app-shell.theme-light .cankoroot {
+    color: #5b6472;
+}
+
+.app-shell.theme-light .cankoroot:hover {
+    color: #1f2937;
+    text-shadow: none;
+}
+
+.app-shell.theme-light .hero-title {
+    color: #1f2937;
+    text-shadow: none;
+}
+
+.app-shell.theme-light .todo-input,
+.app-shell.theme-light .create-button {
+    border-color: rgba(17, 24, 39, 0.18);
+    background: rgba(255, 255, 255, 0.76);
+    color: #1f2937;
+}
+
+.app-shell.theme-light .create-button:hover {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+.app-shell.theme-light .container {
+    border-color: rgba(17, 24, 39, 0.18);
+    background: rgba(255, 255, 255, 0.76);
+}
+
+.app-shell.theme-light .text,
+.app-shell.theme-light .icons,
+.app-shell.theme-light .check,
+.app-shell.theme-light .complete-toggle-outside,
+.app-shell.theme-light .todo-edit-input {
+    color: #1f2937;
+}
+
+.app-shell.theme-light .todo-edit-input {
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.app-shell.theme-light .container.completed::after {
+    background-color: #1f2937;
+}
+
+@media (max-width: 768px) {
+    .app-shell {
+        gap: 20px;
+        padding-top: 18px;
+    }
+
+    .auth-shell {
+        padding: 16px;
+        border-radius: 22px;
+    }
+
+    .auth-switcher {
+        gap: 8px;
+        padding: 6px;
+    }
+
+    .auth-switcher-btn {
+        padding: 12px 10px;
+    }
+
+    .app-shell.has-user {
+        padding-top: 68px;
+    }
+
+    .avatar-menu-anchor {
+        top: 12px;
+        right: 12px;
+        gap: 10px;
+    }
+
+    .user-avatar {
+        width: 46px;
+        height: 46px;
+        font-size: 0.85rem;
+    }
+
+    .user-dropdown {
+        min-width: 186px;
+        padding: 8px;
+        border-radius: 16px;
+    }
+
+    .user-dropdown-item {
+        padding: 11px 12px;
+    }
+}
