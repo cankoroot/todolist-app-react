@@ -7,28 +7,41 @@ function Login({ onLoginSuccess, onNotify }) {
     const [rememberMe, setRememberMe] = useState(true);
 
     const loginUser = async () => {
-        if (username === "" || password === "") {
+        const normalizedUsername = username.trim();
+        const normalizedPassword = password.trim();
+
+        if (normalizedUsername === "" || normalizedPassword === "") {
             onNotify?.("Lütfen tüm alanları doldurun", "error")
             return;
         }
 
-        const response = await fetch(
-            `http://localhost:3001/users?username=${encodeURIComponent(username.trim())}`
-        )
-        const currentUsers = await response.json()
+        try {
+            const response = await fetch(
+                `http://localhost:3001/users?username=${encodeURIComponent(normalizedUsername)}`
+            )
 
-        if (currentUsers.length === 0) {
-            onNotify?.("Bu kullanıcı adıyla kayıtlı hesap bulunamadı", "error")
-            return;
+            if (!response.ok) {
+                throw new Error("Giriş isteği başarısız")
+            }
+
+            const currentUsersResponse = await response.json()
+            const currentUsers = Array.isArray(currentUsersResponse) ? currentUsersResponse : []
+
+            if (currentUsers.length === 0) {
+                onNotify?.("Bu kullanıcı adıyla kayıtlı hesap bulunamadı", "error")
+                return;
+            }
+
+            if (currentUsers[0].password !== normalizedPassword) {
+                onNotify?.("Şifre yanlış", "error")
+                return;
+            }
+
+            onLoginSuccess?.(currentUsers[0], rememberMe);
+            onNotify?.("Giriş başarılı!", "success")
+        } catch (error) {
+            onNotify?.("Sunucuya bağlanılamadı. JSON Server çalışıyor mu kontrol et.", "error")
         }
-
-        if (currentUsers[0].password !== password) {
-            onNotify?.("Şifre yanlış", "error")
-            return;
-        }
-
-        onLoginSuccess?.(currentUsers[0], rememberMe);
-        onNotify?.("Giriş başarılı!", "success")
     }
 
     return (
