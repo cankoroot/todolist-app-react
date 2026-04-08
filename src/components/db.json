@@ -7,8 +7,8 @@
       "password": "159357",
       "todos": [
         {
-          "id": 864,
-          "content": "Salamlar",
+          "id": 239,
+          "content": "DOST SA",
           "isCompleted": false
         }
       ]
@@ -20,6 +20,5 @@
       "todos": [],
       "id": "vNXuzuJnDQ8"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess, onNotify }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(true);
 
     const loginUser = async () => {
         if (username === "" || password === "") {
-            alert("Lütfen tüm alanları doldurun")
+            onNotify?.("Lütfen tüm alanları doldurun", "error")
             return;
         }
 
@@ -18,17 +18,17 @@ function Login({ onLoginSuccess }) {
         const currentUsers = await response.json()
 
         if (currentUsers.length === 0) {
-            alert("Bu kullanıcı adıyla kayıtlı hesap bulunamadı")
+            onNotify?.("Bu kullanıcı adıyla kayıtlı hesap bulunamadı", "error")
             return;
         }
 
         if (currentUsers[0].password !== password) {
-            alert("Şifre yanlış")
+            onNotify?.("Şifre yanlış", "error")
             return;
         }
 
         onLoginSuccess?.(currentUsers[0], rememberMe);
-        alert("Giriş başarılı!")
+        onNotify?.("Giriş başarılı!", "success")
     }
 
     return (

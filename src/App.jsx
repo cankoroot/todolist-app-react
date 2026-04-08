@@ -12,7 +12,18 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [theme, setTheme] = useState('dark');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notice, setNotice] = useState({ message: '', type: 'success' });
   const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!notice.message) return;
+
+    const timeoutId = setTimeout(() => {
+      setNotice({ message: '', type: 'success' });
+    }, 2800);
+
+    return () => clearTimeout(timeoutId);
+  }, [notice]);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
@@ -143,6 +154,10 @@ function App() {
     setMenuOpen((previous) => !previous);
   }
 
+  const showNotice = (message, type = 'success') => {
+    setNotice({ message, type });
+  }
+
   const getUserInitials = (username) => {
     if (!username) return '?';
 
@@ -157,6 +172,12 @@ function App() {
 
   return (
     <div className={`app-shell theme-${theme} ${currentUser ? 'has-user' : ''}`}>
+      {notice.message ? (
+        <div className={`app-notice ${notice.type === 'error' ? 'error' : 'success'}`} role='status' aria-live='polite'>
+          {notice.message}
+        </div>
+      ) : null}
+
       {currentUser ? (
         <div className='avatar-menu-anchor' ref={menuRef}>
           <button
@@ -209,9 +230,9 @@ function App() {
 
           <div key={authMode} className={`auth-panel ${authMode === 'register' ? 'register-mode' : 'login-mode'}`}>
             {authMode === 'register' ? (
-              <Register onRegisterSuccess={handleAuthSuccess} />
+              <Register onRegisterSuccess={handleAuthSuccess} onNotify={showNotice} />
             ) : (
-              <Login onLoginSuccess={handleAuthSuccess} />
+              <Login onLoginSuccess={handleAuthSuccess} onNotify={showNotice} />
             )}
           </div>
         </section>

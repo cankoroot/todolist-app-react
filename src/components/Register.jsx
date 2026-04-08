@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-function Register({ onRegisterSuccess }) {
+function Register({ onRegisterSuccess, onNotify }) {
 
 
     const [username, setUsername] = useState('');
@@ -10,36 +10,54 @@ function Register({ onRegisterSuccess }) {
 
     const registerUser = async () => {
 
-        if (username === "" || email === "" || password === "") {
-            alert("Lütfen tüm alanları doldurun")
+        const normalizedUsername = username.trim();
+        const normalizedEmail = email.trim().toLowerCase();
+        const normalizedPassword = password.trim();
+
+        if (normalizedUsername === "" || normalizedEmail === "" || normalizedPassword === "") {
+            onNotify?.("Lütfen tüm alanları doldurun", "error")
             return;
         }
 
-        const emailControl = await fetch(
-            `http://localhost:3001/users?email=${email.toLowerCase()}`
-        )
-        const currentUsers = await emailControl.json()
+        try {
+            const emailControl = await fetch(
+                `http://localhost:3001/users?email=${encodeURIComponent(normalizedEmail)}`
+            )
 
-        if (currentUsers.length > 0) {
-            alert("Bu email zaten kayıtlı")
-            return;
-        }
+            if (!emailControl.ok) {
+                throw new Error("Email kontrol isteği başarısız")
+            }
 
-        const response = await fetch("http://localhost:3001/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: username,
-                email: email.toLowerCase(),
-                password: password,
-                todos: []
+            const currentUsersResponse = await emailControl.json()
+            const currentUsers = Array.isArray(currentUsersResponse) ? currentUsersResponse : []
+
+            if (currentUsers.length > 0) {
+                onNotify?.("Bu email zaten kayıtlı", "error")
+                return;
+            }
+
+            const response = await fetch("http://localhost:3001/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: normalizedUsername,
+                    email: normalizedEmail,
+                    password: normalizedPassword,
+                    todos: []
+                })
             })
-        })
 
-        const createdUser = await response.json()
+            if (!response.ok) {
+                throw new Error("Kayıt isteği başarısız")
+            }
 
-        onRegisterSuccess?.(createdUser, true);
-        alert("Kayıt başarılı!")
+            const createdUser = await response.json()
+
+            onRegisterSuccess?.(createdUser, true);
+            onNotify?.("Kayıt başarılı!", "success")
+        } catch (error) {
+            onNotify?.("Kayıt sırasında bir hata oluştu. JSON Server çalışıyor mu kontrol et.", "error")
+        }
     }
 
 
