@@ -19,6 +19,19 @@
       "password": "159357",
       "todos": [],
       "id": "vNXuzuJnDQ8"
+    },
+    {
+      "username": "cankodeneme",
+      "email": "cankodeneme@gmail.com",
+      "password": "159357",
+      "todos": [
+        {
+          "id": 402,
+          "content": "cankosa",
+          "isCompleted": false
+        }
+      ],
+      "id": "Bwd7a1wAWeo"
     }
   ]
 }
