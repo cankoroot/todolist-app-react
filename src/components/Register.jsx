@@ -21,7 +21,7 @@ function Register({ onRegisterSuccess, onNotify }) {
 
         try {
             const emailControl = await fetch(
-                `http://localhost:3001/users?email=${encodeURIComponent(normalizedEmail)}`
+                `https://todolistapp-fakerestapi.onrender.com/users?email=${encodeURIComponent(normalizedEmail)}`
             )
 
             if (!emailControl.ok) {
@@ -36,7 +36,7 @@ function Register({ onRegisterSuccess, onNotify }) {
                 return;
             }
 
-            const response = await fetch("http://localhost:3001/users", {
+            const response = await fetch("https://todolistapp-fakerestapi.onrender.com/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

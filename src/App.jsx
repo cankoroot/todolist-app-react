@@ -94,7 +94,7 @@ function App() {
     setTodos(updatedTodos);
     saveUserToStorage(updatedUser);
 
-    await fetch(`http://localhost:3001/users/${currentUser.id}`, {
+    await fetch(`https://todolistapp-fakerestapi.onrender.com//users/${currentUser.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

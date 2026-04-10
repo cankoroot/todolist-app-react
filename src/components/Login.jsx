@@ -17,7 +17,7 @@ function Login({ onLoginSuccess, onNotify }) {
 
         try {
             const response = await fetch(
-                `http://localhost:3001/users?username=${encodeURIComponent(normalizedUsername)}`
+                `https://todolistapp-fakerestapi.onrender.com//users?username=${encodeURIComponent(normalizedUsername)}`
             )
 
             if (!response.ok) {
